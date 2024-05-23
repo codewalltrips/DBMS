@@ -1,0 +1,95 @@
+mysql> create table PERSONS(P_ID int, LASTNAME char
+    -> (50), FIRSTNAME char(50), ADDRESS char(50), CITY (20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(20))' at line 2
+mysql> create table PERSONS(P_ID int, LASTNAME char(20), FIRSTNAME char(20), ADDRESS char(20) , CITY char(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into PERSONS values(1,'HANSEN','OLA','TIMOTEIVN 10','SANDNES');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> DESC PERSONS;
++-----------+----------+------+-----+---------+-------+
+| Field     | Type     | Null | Key | Default | Extra |
++-----------+----------+------+-----+---------+-------+
+| P_ID      | int      | YES  |     | NULL    |       |
+| LASTNAME  | char(20) | YES  |     | NULL    |       |
+| FIRSTNAME | char(20) | YES  |     | NULL    |       |
+| ADDRESS   | char(20) | YES  |     | NULL    |       |
+| CITY      | char(20) | YES  |     | NULL    |       |
++-----------+----------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into PERSONS values(2,'SVENDSON','TOVE','BORGVN 23','SANDNES');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into PERSONS values(3,'PETTERSEN','KARI','STORGT 20','STAVANGER');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> SELECT * FROM PERSONS;
++------+-----------+-----------+--------------+-----------+
+| P_ID | LASTNAME  | FIRSTNAME | ADDRESS      | CITY      |
++------+-----------+-----------+--------------+-----------+
+|    1 | HANSEN    | OLA       | TIMOTEIVN 10 | SANDNES   |
+|    2 | SVENDSON  | TOVE      | BORGVN 23    | SANDNES   |
+|    3 | PETTERSEN | KARI      | STORGT 20    | STAVANGER |
++------+-----------+-----------+--------------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT LASTNAME FROM PERSONS;63
++-----------+
+| LASTNAME  |
++-----------+
+| HANSEN    |
+| SVENDSON  |
+| PETTERSEN |
++-----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT LASTNAME AND FIRSTNAME  FROM PERSONS;
++------------------------+
+| LASTNAME AND FIRSTNAME |
++------------------------+
+|                      0 |
+|                      0 |
+|                      0 |
++------------------------+
+3 rows in set, 3 warnings (0.01 sec)
+
+mysql> SELECT LASTNAME AND FIRSTNAME FROM PERSONS;
++------------------------+
+| LASTNAME AND FIRSTNAME |
++------------------------+
+|                      0 |
+|                      0 |
+|                      0 |
++------------------------+
+3 rows in set, 3 warnings (0.00 sec)
+
+mysql> SELECT * FROM PERSONS WHERE CITY ='SANDNES';
++------+----------+-----------+--------------+---------+
+| P_ID | LASTNAME | FIRSTNAME | ADDRESS      | CITY    |
++------+----------+-----------+--------------+---------+
+|    1 | HANSEN   | OLA       | TIMOTEIVN 10 | SANDNES |
+|    2 | SVENDSON | TOVE      | BORGVN 23    | SANDNES |
++------+----------+-----------+--------------+---------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT * FROM PERSONS WHERE FIRSTNAME='TOVE' AND LASTNAME='SVENDSON';
++------+----------+-----------+-----------+---------+
+| P_ID | LASTNAME | FIRSTNAME | ADDRESS   | CITY    |
++------+----------+-----------+-----------+---------+
+|    2 | SVENDSON | TOVE      | BORGVN 23 | SANDNES |
++------+----------+-----------+-----------+---------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM PERSONS WHERE FIRSTNAME='TOVE' OR FIRSTNAME ='OLA';
++------+----------+-----------+--------------+---------+
+| P_ID | LASTNAME | FIRSTNAME | ADDRESS      | CITY    |
++------+----------+-----------+--------------+---------+
+|    1 | HANSEN   | OLA       | TIMOTEIVN 10 | SANDNES |
+|    2 | SVENDSON | TOVE      | BORGVN 23    | SANDNES |
++------+----------+-----------+--------------+---------+
+2 rows in set (0.00 sec)

@@ -1,0 +1,19 @@
+Select * from BOOKS where Author_name = “P.Purohit” and Publishers = “FIRST PUBL.”;
+
+(ii)
+Select Price from BOOKS where Publishers = “FIRST PUBL.”;
+
+(iii)
+Select * , Price * 0.95 from BOOKS ;
+
+(iv)
+Select Book_name, Price from BOOKS, ISSUED where Book-id.BOOKS = Book-id.ISSUED and Qty_Issued > 3 ;
+
+
+
+(v)
+Select sum(price) from BOOKS group by Type ;
+
+(vi)
+Select * from BOOKS having Price = MAX(Price) ;
+

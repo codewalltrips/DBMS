@@ -1,0 +1,138 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE TRIPARNA;
+Database changed
+mysql> CREATE TABLE STATION(ID INT PRIMARY KEY, CITY CHAR(20), STATE CHAR(20),LAT_N REAL,LONG_W REAL);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO STATION VALUES (13, 'Phoenix', 'AZ', 33, 112);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STATION VALUES (44, 'Denver', 'CO', 40, 105);
+Query OK, 1 row affected (0.01 sec)
+
+mysql>
+mysql> IINSERT INTO STATION VALUES (44, 'Denver', 'CO', 40, 105);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'IINSERT INTO STATION VALUES (44, 'Denver', 'CO', 40, 105)' at line 1
+mysql> INSERT INTO STATION VALUES (44, 'Denver', 'CO', 40, 105);
+ERROR 1062 (23000): Duplicate entry '44' for key 'station.PRIMARY'
+mysql> INSERT INTO STATION VALUES (66, 'Caribou', 'ME', 47, 68);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM STATION;
++----+---------+-------+-------+--------+
+| ID | CITY    | STATE | LAT_N | LONG_W |
++----+---------+-------+-------+--------+
+| 13 | Phoenix | AZ    |    33 |    112 |
+| 44 | Denver  | CO    |    40 |    105 |
+| 66 | Caribou | ME    |    47 |     68 |
++----+---------+-------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT CITY WHERE LAT_N>39.7;
+ERROR 1054 (42S22): Unknown column 'CITY' in 'field list'
+mysql> SELECT * FROM STATION WHERE LAT_N>39.7;
++----+---------+-------+-------+--------+
+| ID | CITY    | STATE | LAT_N | LONG_W |
++----+---------+-------+-------+--------+
+| 44 | Denver  | CO    |    40 |    105 |
+| 66 | Caribou | ME    |    47 |     68 |
++----+---------+-------+-------+--------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT ID, CITY, STATE FROM STATION;
++----+---------+-------+
+| ID | CITY    | STATE |
++----+---------+-------+
+| 13 | Phoenix | AZ    |
+| 44 | Denver  | CO    |
+| 66 | Caribou | ME    |
++----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> CREATE TABLE STATS (ID INT REFERENCES STATION(ID), MONTH INT CHECK(MONTH BETWEEN 1 AND 12), TEMP_F REAL CHECK(TEMP_F BETWEEN -80 AND 150), RAIN_I REAL CHECK(RAIN_I BETWEEN 0 AND 100), PRIMARY KEY (ID, MONTH));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO STATS VALUES (13, 1, 57.4, 0.31);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO STATS VALUES (13, 7, 91.7, 5.15);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STATS VALUES (44, 1, 27.3, 0.18);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STATS VALUES (44, 7, 74.8, 2.11);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STATS VALUES (66, 1, 6.7, 2.10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STATS VALUES (66, 1, 6.7, 2.10);
+ERROR 1062 (23000): Duplicate entry '66-1' for key 'stats.PRIMARY'
+mysql> INSERT INTO STATS VALUES (66, 7, 65.8, 4.52);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM STATS;
++----+-------+--------+--------+
+| ID | MONTH | TEMP_F | RAIN_I |
++----+-------+--------+--------+
+| 13 |     1 |   57.4 |   0.31 |
+| 13 |     7 |   91.7 |   5.15 |
+| 44 |     1 |   27.3 |   0.18 |
+| 44 |     7 |   74.8 |   2.11 |
+| 66 |     1 |    6.7 |    2.1 |
+| 66 |     7 |   65.8 |   4.52 |
++----+-------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STATION;
++----+---------+-------+-------+--------+
+| ID | CITY    | STATE | LAT_N | LONG_W |
++----+---------+-------+-------+--------+
+| 13 | Phoenix | AZ    |    33 |    112 |
+| 44 | Denver  | CO    |    40 |    105 |
+| 66 | Caribou | ME    |    47 |     68 |
++----+---------+-------+-------+--------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM STATS, LAT_N , LONG_W FROM STATION WHERE STATS.ID=STATION.ID;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM STATION WHERE STATS.ID=STATION.ID' at line 1
+mysql> SELECT * , LAT_N , LONG_W FROM STATS,STATION WHERE STATS.ID=STATION.ID;
++----+-------+--------+--------+----+---------+-------+-------+--------+-------+--------+
+| ID | MONTH | TEMP_F | RAIN_I | ID | CITY    | STATE | LAT_N | LONG_W | LAT_N | LONG_W |
++----+-------+--------+--------+----+---------+-------+-------+--------+-------+--------+
+| 13 |     1 |   57.4 |   0.31 | 13 | Phoenix | AZ    |    33 |    112 |    33 |    112 |
+| 13 |     7 |   91.7 |   5.15 | 13 | Phoenix | AZ    |    33 |    112 |    33 |    112 |
+| 44 |     1 |   27.3 |   0.18 | 44 | Denver  | CO    |    40 |    105 |    40 |    105 |
+| 44 |     7 |   74.8 |   2.11 | 44 | Denver  | CO    |    40 |    105 |    40 |    105 |
+| 66 |     1 |    6.7 |    2.1 | 66 | Caribou | ME    |    47 |     68 |    47 |     68 |
+| 66 |     7 |   65.8 |   4.52 | 66 | Caribou | ME    |    47 |     68 |    47 |     68 |
++----+-------+--------+--------+----+---------+-------+-------+--------+-------+--------+
+6 rows in set (0.01 sec)
+
+mysql> SELECT * FROM STATS ORDER BY MONTH ,RAIN_I;
++----+-------+--------+--------+
+| ID | MONTH | TEMP_F | RAIN_I |
++----+-------+--------+--------+
+| 44 |     1 |   27.3 |   0.18 |
+| 13 |     1 |   57.4 |   0.31 |
+| 66 |     1 |    6.7 |    2.1 |
+| 44 |     7 |   74.8 |   2.11 |
+| 66 |     7 |   65.8 |   4.52 |
+| 13 |     7 |   91.7 |   5.15 |
++----+-------+--------+--------+
+6 rows in set (0.00 sec)
+
+mysql>

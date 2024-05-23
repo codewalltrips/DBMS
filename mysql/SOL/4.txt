@@ -1,0 +1,199 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE TRIPARNA;
+Database changed
+mysql> INSERT INTO ITEMS VALUES(;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO ITEMS VALUES(1006,'LED SCREEN 40',70,38000,'SANTORA','T02');
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO ITEMS VALUES(1004,'CAR GPS SYSTEM', 50,2150,'GEOKNOW','T01');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ITEMS VALUES(1003,'DIGITAL CAMERA 12X', 160,8000,'DIGICLICK','T03');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ITEMS VALUES(1005,'PEN DRIVE 32 GB',600,1200,'STOREHOME','T03');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM ITEMS;
++------+--------------------+------+-------+-----------+-------+
+| CODE | INAME              | QTY  | PRICE | COMPANY   | TCODE |
++------+--------------------+------+-------+-----------+-------+
+| 1001 | DIGITAL PAD 121    |  120 | 11000 | XENITA    | T01   |
+| 1006 | LED SCREEN 40      |   70 | 38000 | SANTORA   | T02   |
+| 1004 | CAR GPS SYSTEM     |   50 |  2150 | GEOKNOW   | T01   |
+| 1003 | DIGITAL CAMERA 12X |  160 |  8000 | DIGICLICK | T03   |
+| 1005 | PEN DRIVE 32 GB    |  600 |  1200 | STOREHOME | T03   |
++------+--------------------+------+-------+-----------+-------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE TRADERS(TCODE CHAR(20), TNAME CHAR(50),CITY CHAR(20));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO TRADERS VALUES(;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO TRADERS VALUES('T01','ELECTRONIC SALES','MUMBAI');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TRADERS VALUES('T03','BUSY STORE CORP','DELHI');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO TRADERS VALUES('T02','DISP HOUSE INC','CHENNAI');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM TRADERS;
++-------+------------------+---------+
+| TCODE | TNAME            | CITY    |
++-------+------------------+---------+
+| T01   | ELECTRONIC SALES | MUMBAI  |
+| T03   | BUSY STORE CORP  | DELHI   |
+| T02   | DISP HOUSE INC   | CHENNAI |
++-------+------------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM ITEMS ORDER BY INAME;
++------+--------------------+------+-------+-----------+-------+
+| CODE | INAME              | QTY  | PRICE | COMPANY   | TCODE |
++------+--------------------+------+-------+-----------+-------+
+| 1004 | CAR GPS SYSTEM     |   50 |  2150 | GEOKNOW   | T01   |
+| 1003 | DIGITAL CAMERA 12X |  160 |  8000 | DIGICLICK | T03   |
+| 1001 | DIGITAL PAD 121    |  120 | 11000 | XENITA    | T01   |
+| 1006 | LED SCREEN 40      |   70 | 38000 | SANTORA   | T02   |
+| 1005 | PEN DRIVE 32 GB    |  600 |  1200 | STOREHOME | T03   |
++------+--------------------+------+-------+-----------+-------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT INAME , PRICE FROM ITEMS WHERE PRICE BETWEEN 10000 AND 22000;
++-----------------+-------+
+| INAME           | PRICE |
++-----------------+-------+
+| DIGITAL PAD 121 | 11000 |
++-----------------+-------+
+1 row in set (0.01 sec)
+
+mysql> SELECT TCODE COUNT(*) FROM ITEMS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'COUNT(*) FROM ITEMS' at line 1
+mysql> SELECT TCODE, COUNT(*) FROM ITEMS;
++-------+----------+
+| TCODE | COUNT(*) |
++-------+----------+
+| T01   |        5 |
++-------+----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT TCODE, COUNT(*) FROM ITEMS GROUP B TCODE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'B TCODE' at line 1
+mysql> SELECT TCODE, COUNT(*) FROM ITEMS GROUP BY TCODE;
++-------+----------+
+| TCODE | COUNT(*) |
++-------+----------+
+| T01   |        2 |
+| T02   |        1 |
+| T03   |        2 |
++-------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT PRICE,INAME,QTY FROM ITEMS WHERE QTY<150;
++-------+-----------------+------+
+| PRICE | INAME           | QTY  |
++-------+-----------------+------+
+| 11000 | DIGITAL PAD 121 |  120 |
+| 38000 | LED SCREEN 40   |   70 |
+|  2150 | CAR GPS SYSTEM  |   50 |
++-------+-----------------+------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT PRICE,INAME,QTY FROM ITEMS WHERE QTY>150;
++-------+--------------------+------+
+| PRICE | INAME              | QTY  |
++-------+--------------------+------+
+|  8000 | DIGITAL CAMERA 12X |  160 |
+|  1200 | PEN DRIVE 32 GB    |  600 |
++-------+--------------------+------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT TNAME FROM TRADERS WHERE CITY='DELHI' OR CITY ='MUMBAI';
++------------------+
+| TNAME            |
++------------------+
+| ELECTRONIC SALES |
+| BUSY STORE CORP  |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT INAME , COMPANY FROM ITEMS ORDER BY COMPANY;
++--------------------+-----------+
+| INAME              | COMPANY   |
++--------------------+-----------+
+| DIGITAL CAMERA 12X | DIGICLICK |
+| CAR GPS SYSTEM     | GEOKNOW   |
+| LED SCREEN 40      | SANTORA   |
+| PEN DRIVE 32 GB    | STOREHOME |
+| DIGITAL PAD 121    | XENITA    |
++--------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT MAX(PRICE) "MAX(PRICE)", MIN(PRICE) "MIN(PRICE)" FROM ITEMS;
++------------+------------+
+| MAX(PRICE) | MIN(PRICE) |
++------------+------------+
+|      38000 |       1200 |
++------------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT SUM PRICE "AMOUNT" FROM ITEMS;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"AMOUNT" FROM ITEMS' at line 1
+mysql> SELECT SUM(PRICE) "AMOUNT" FROM ITEMS;
++--------+
+| AMOUNT |
++--------+
+|  60350 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT DISTINCT TCODE FROM ITEMS;
++-------+
+| TCODE |
++-------+
+| T01   |
+| T02   |
+| T03   |
++-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT INAME,TNAME FROM ITEMS I, TRADERS T WHERE I.TCODE=T.TCODE;
++--------------------+------------------+
+| INAME              | TNAME            |
++--------------------+------------------+
+| DIGITAL PAD 121    | ELECTRONIC SALES |
+| LED SCREEN 40      | DISP HOUSE INC   |
+| CAR GPS SYSTEM     | ELECTRONIC SALES |
+| DIGITAL CAMERA 12X | BUSY STORE CORP  |
+| PEN DRIVE 32 GB    | BUSY STORE CORP  |
++--------------------+------------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT INAME,TNAME FROM ITEMS I, TRADERS T WHERE I.TCODE=T.TCODE AND TCODE='T01' OR TCODE='T02';\;
+ERROR 1052 (23000): Column 'TCODE' in where clause is ambiguous
+ERROR:
+Unknown command '\;'.
+    -> SELECT INAME,TNAME FROM ITEMS I, TRADERS T WHERE I.TCODE=T.TCODE AND TCODE='T01' OR TCODE='T02';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '\;
+SELECT INAME,TNAME FROM ITEMS I, TRADERS T WHERE I.TCODE=T.TCODE AND TCODE='T' at line 1
+mysql> SELECT INAME,TNAME FROM ITEMS I, TRADERS T WHERE I.TCODE=T.TCODE AND WHERE TCODE='T01' OR TCODE='T02';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE TCODE='T01' OR TCODE='T02'' at line 1
+mysql> SELECT INAME,TNAME FROM ITEMS I, TRADERS T WHERE TCODE='T01' OR TCODE='T02'AND I.TCODE=T.TCODE;
+ERROR 1052 (23000): Column 'TCODE' in where clause is ambiguous
+mysql>

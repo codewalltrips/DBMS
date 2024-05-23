@@ -1,0 +1,23 @@
+
+To select all the information of patients of all cardiology department.
+Ans: Select all from Hospital where department=”Cardiology”
+(c) To list the names of female patients who are in ent department.
+Ans:select name from Hospital where Department=”Ent” and Sex=”F”
+(d) To list names of all patients with their date of admission in ascending order.
+Ans: Select name,dateofadm from Hospital dateofadm.
+(e) To display patients name, charges, age, for only female patients.
+Ans: Select Name,Charges,age from Hospital where sex=”F”
+(f) To count the number of patients with age <30.
+Ans: Select count(*) from hospitals where age<30
+(g) To insert the new row in the hospital table with the following data: 11, “aftab”, 24, “surgery”, {25/2/98}, 300, “M”.
+Ans: insert into Hospital values(11, “aftab”, 24, “surgery”, {25/02/98}, 300, “M”)
+(h) Give the output of the following SQL statements:
+(i) Select count (distinct charges)from hospital;
+Ans: 5
+
+(ii) Select min(age) from hospital where sex = “f’;
+Ans: 16
+(iii) Select sum(charges) from hospital where department = “ent”;
+Ans: 750
+(iv) Select avg(charges) from hospital where date of admission is <{12/02/98};
+Ans: 380

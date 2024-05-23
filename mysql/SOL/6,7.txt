@@ -1,0 +1,371 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use triparna;
+Database changed
+mysql> CREATE TABLE CUSTOMER(CID INT, CNAME CHAR(20), GENDER CHAR(20), SID INT, AREA CHAR(10));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO CUSTOMER VALUES(1001,'R SHARMA','FEMALE',101,'NORTH');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1002,'M R TIWARI', 'MALE',102,'SOUTH');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1003,'M K KHAN','MALE',103,'EAST');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1004,'A K SINGH','MALE',102,'EAST');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1005,'S SEN','FEMALE',101,'WEST');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1006,'R DUBEY','MALE',104,'NORTH');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1007,'M AGARWAL','FEMALE',104,'NORTH');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1008,'S DAS','FEMALE',103,'SOUTH');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1009,'R K PATIL','MALE',102,'NORTH');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CUSTOMER VALUES(1010,'N KRISHNA MURTHY','MALE',102,'SOUTH');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM CUSTOMER;
++------+------------------+--------+------+-------+
+| CID  | CNAME            | GENDER | SID  | AREA  |
++------+------------------+--------+------+-------+
+| 1001 | R SHARMA         | FEMALE |  101 | NORTH |
+| 1002 | M R TIWARI       | MALE   |  102 | SOUTH |
+| 1003 | M K KHAN         | MALE   |  103 | EAST  |
+| 1004 | A K SINGH        | MALE   |  102 | EAST  |
+| 1005 | S SEN            | FEMALE |  101 | WEST  |
+| 1006 | R DUBEY          | MALE   |  104 | NORTH |
+| 1007 | M AGARWAL        | FEMALE |  104 | NORTH |
+| 1008 | S DAS            | FEMALE |  103 | SOUTH |
+| 1009 | R K PATIL        | MALE   |  102 | NORTH |
+| 1010 | N KRISHNA MURTHY | MALE   |  102 | SOUTH |
++------+------------------+--------+------+-------+
+10 rows in set (0.00 sec)
+
+mysql> CREATE TABLE ONLINESHOP ( SID INT, SHOP CHAR(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO ONLINESHOP VALUES(;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO ONLINESHOP VALUES(101,'MY BUT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> UPDATE ONLINESHOP SET SHOP='MY BUY' WHERE SID=101;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM ONLINESHOP;
++------+--------+
+| SID  | SHOP   |
++------+--------+
+|  101 | MY BUY |
++------+--------+
+1 row in set (0.01 sec)
+
+mysql> INSERT INTO ONLINESHOP VALUES(102,'ECO BUY');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ONLINESHOP VALUES(103,'JUST SHOPPING');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ONLINESHOP VALUES(104,'SHOPPING EASY');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM ONLINESHOP;
++------+---------------+
+| SID  | SHOP          |
++------+---------------+
+|  101 | MY BUY        |
+|  102 | ECO BUY       |
+|  103 | JUST SHOPPING |
+|  104 | SHOPPING EASY |
++------+---------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CNAME, AREAD FROM CUSTOMER WHERE GENDER='FEMALE';
+ERROR 1054 (42S22): Unknown column 'AREAD' in 'field list'
+mysql> SELECT CNAME, AREA FROM CUSTOMER WHERE GENDER='FEMALE';
++-----------+-------+
+| CNAME     | AREA  |
++-----------+-------+
+| R SHARMA  | NORTH |
+| S SEN     | WEST  |
+| M AGARWAL | NORTH |
+| S DAS     | SOUTH |
++-----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CNAME,SID FROM CUSTOMER ORDER BY SID;
++------------------+------+
+| CNAME            | SID  |
++------------------+------+
+| R SHARMA         |  101 |
+| S SEN            |  101 |
+| M R TIWARI       |  102 |
+| A K SINGH        |  102 |
+| R K PATIL        |  102 |
+| N KRISHNA MURTHY |  102 |
+| M K KHAN         |  103 |
+| S DAS            |  103 |
+| R DUBEY          |  104 |
+| M AGARWAL        |  104 |
++------------------+------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT COUNT(*) , AREA FROM CUSTOMER GROUP BY AREA;
++----------+-------+
+| COUNT(*) | AREA  |
++----------+-------+
+|        4 | NORTH |
+|        3 | SOUTH |
+|        2 | EAST  |
+|        1 | WEST  |
++----------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CNAME,SHOP FROM CUSTOMER C,ONLINESHOP O WHERE C.SID=O.SID;
++------------------+---------------+
+| CNAME            | SHOP          |
++------------------+---------------+
+| R SHARMA         | MY BUY        |
+| M R TIWARI       | ECO BUY       |
+| M K KHAN         | JUST SHOPPING |
+| A K SINGH        | ECO BUY       |
+| S SEN            | MY BUY        |
+| R DUBEY          | SHOPPING EASY |
+| M AGARWAL        | SHOPPING EASY |
+| S DAS            | JUST SHOPPING |
+| R K PATIL        | ECO BUY       |
+| N KRISHNA MURTHY | ECO BUY       |
++------------------+---------------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT COUNT(*),GENDER FROM CUSTOMER GROUP BY GENDER;
++----------+--------+
+| COUNT(*) | GENDER |
++----------+--------+
+|        4 | FEMALE |
+|        6 | MALE   |
++----------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(*) FROM CUSTOMER GROUP BY SID;
++----------+
+| COUNT(*) |
++----------+
+|        2 |
+|        4 |
+|        2 |
+|        2 |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(SID) FROM CUSTOMER ;
++------------+
+| COUNT(SID) |
++------------+
+|         10 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT SID) FROM CUSTOMER ;
++---------------------+
+| COUNT(DISTINCT SID) |
++---------------------+
+|                   4 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT CNAME FROM CUSTOMER WHERE CNAME LIKE 'L%';
+Empty set (0.01 sec)
+
+mysql> SELECT DISTINCT AREA FROM CUSTOMER;
++-------+
+| AREA  |
++-------+
+| NORTH |
+| SOUTH |
+| EAST  |
+| WEST  |
++-------+
+4 rows in set (0.01 sec)
+
+mysql> CREATE TABLE CARDEN (CCODE INT, CARNAME CHAR(20), MAKE CHAR(20), COLOR CHAR(20), CAPACITY INT, CHARGER INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO CARDEN VALUES(;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO CARDEN VALUES(501,'A-STAR','SUZIKI','RED',3,14);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO CARDEN VALUES(503,'INDIGO','TATA','SILVER',3,12);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CARDEN VALUES(205,'INNOVA','TOYOTA','WHITE',7,15);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO CARDEN VALUES(509,'SX4','SUZUKI','SILVER',4,14);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CARDEN VALUES(510,'C-CLASS','MERCEDES','RED',4,35);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> UPDATE CARDEN SET CCODE=502 WHERE MAKE='TOYOTA';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT * FROM CARDEN;
++-------+---------+----------+--------+----------+---------+
+| CCODE | CARNAME | MAKE     | COLOR  | CAPACITY | CHARGER |
++-------+---------+----------+--------+----------+---------+
+|   501 | A-STAR  | SUZIKI   | RED    |        3 |      14 |
+|   503 | INDIGO  | TATA     | SILVER |        3 |      12 |
+|   502 | INNOVA  | TOYOTA   | WHITE  |        7 |      15 |
+|   509 | SX4     | SUZUKI   | SILVER |        4 |      14 |
+|   510 | C-CLASS | MERCEDES | RED    |        4 |      35 |
++-------+---------+----------+--------+----------+---------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE CUSTOMER (CODE INT, CNAME CHAR(20),CCODE INT);
+ERROR 1050 (42S01): Table 'customer' already exists
+mysql> CREATE TABLE CCUSTOMER (CODE INT, CNAME CHAR(20),CCODE INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO CCUSTOMER VLAUES(;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'VLAUES(' at line 1
+mysql> INSERT INTO CCUSTOMER VALUES(;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO CCUSTOMER VALUES(1001,'HAMANT SAHU',501);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CCUSTOMER VALUES(1002,'RAJ LAL',509);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CCUSTOMER VALUES(1003,'FEROZA SHAH',503);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CCUSTOMER VALUES(1004,'KETAN DHAL',502);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM CCUSTOMER;
++------+-------------+-------+
+| CODE | CNAME       | CCODE |
++------+-------------+-------+
+| 1001 | HAMANT SAHU |   501 |
+| 1002 | RAJ LAL     |   509 |
+| 1003 | FEROZA SHAH |   503 |
+| 1004 | KETAN DHAL  |   502 |
++------+-------------+-------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CNAME FROM CARDEN WHERE COLOR='SILVER';
+ERROR 1054 (42S22): Unknown column 'CNAME' in 'field list'
+mysql> SELECT CARNAME FROM CARDEN WHERE COLOR='SILVER';
++---------+
+| CARNAME |
++---------+
+| INDIGO  |
+| SX4     |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT CARNAME,MAKE,CAPACITY FROM CARDEN ORDER BY CAPACITY DESC;
++---------+----------+----------+
+| CARNAME | MAKE     | CAPACITY |
++---------+----------+----------+
+| INNOVA  | TOYOTA   |        7 |
+| SX4     | SUZUKI   |        4 |
+| C-CLASS | MERCEDES |        4 |
+| A-STAR  | SUZIKI   |        3 |
+| INDIGO  | TATA     |        3 |
++---------+----------+----------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT MAX(CHARGE) "MAX(CHARGE)" FROM CARDEN;
+ERROR 1054 (42S22): Unknown column 'CHARGE' in 'field list'
+mysql> SELECT MAX(CHARGES) "MAX(CHARGE)" FROM CARDEN;
+ERROR 1054 (42S22): Unknown column 'CHARGES' in 'field list'
+mysql> SELECT MAX(CHARGER) "MAX(CHARGE)" FROM CARDEN;
++-------------+
+| MAX(CHARGE) |
++-------------+
+|          35 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CARNAME,CNAME FROM CARDEN C, CUSTOMER M WHERE C.CCODE=M.CCODE;
+ERROR 1054 (42S22): Unknown column 'M.CCODE' in 'where clause'
+mysql> SELECT CARNAME,CNAME FROM CARDEN C, CCUSTOMER M WHERE C.CCODE=M.CCODE;
++---------+-------------+
+| CARNAME | CNAME       |
++---------+-------------+
+| A-STAR  | HAMANT SAHU |
+| INDIGO  | FEROZA SHAH |
+| INNOVA  | KETAN DHAL  |
+| SX4     | RAJ LAL     |
++---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT COUNT(DISTINCT MAKE) FROM CARDEN;
++----------------------+
+| COUNT(DISTINCT MAKE) |
++----------------------+
+|                    5 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT MAX(CHARGER),MIN(CHARGER) FROM CARDEN;
++--------------+--------------+
+| MAX(CHARGER) | MIN(CHARGER) |
++--------------+--------------+
+|           35 |           12 |
++--------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT(*) MAKE FROM CARDEN;
++------+
+| MAKE |
++------+
+|    5 |
++------+
+1 row in set (0.00 sec)
+
+mysql> SELECT COUNT() FROM CARDEN;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') FROM CARDEN' at line 1
+mysql> SELECT COUNT(*)DISTINCT MAKE FROM CARDEN;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT MAKE FROM CARDEN' at line 1
+mysql> SELECT COUNT(*) DISTINCT MAKE FROM CARDEN;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT MAKE FROM CARDEN' at line 1
+mysql> SELECT CARNAME FROM CARDEN WHERE CAPACITY=4;
++---------+
+| CARNAME |
++---------+
+| SX4     |
+| C-CLASS |
++---------+
+2 rows in set (0.00 sec)
+
+mysql>

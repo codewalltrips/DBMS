@@ -1,0 +1,3 @@
+a) select sum(salary + bonus) from employee;
+
+b) select sum(salary - bonus) from employee;

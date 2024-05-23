@@ -1,0 +1,11 @@
+select * from family where occupation = 'service';
+
+select name from family where femalemembers>3;
+select name , income from family order by income;
+
+select count(*) from family where income < 10000;
+
+SELECT MIN (DISTINCT INCOME) FROM FAMILY;
+SELECT MIN(FEMALEMEMBERS) FROM FAMILY WHERE OCCUPATION= “MIXED”;
+ SELECT SUM(INCOME) FROM FAMILY WHERE OCCUPATION = “SERVICE”;
+ SELECT AVG(INCOME) FROM FAMILY

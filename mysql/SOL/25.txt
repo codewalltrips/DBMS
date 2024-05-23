@@ -1,0 +1,17 @@
+ To show all information about the sofas from the INTERIORS table.
+Ans: Select * from INTERIORS where type= “sofa”.
+(d) To list ITEMNAME and TYPE of those items, in which DATEOFSTOCK is before 22/01/02 from the INTERIORS table in descending order of ITEMNAME.
+Ans: Select Itemname,Type From Interiors Where Dateofstock<{22/01/02} order by Itemname
+(e) To display ITEMNAME and DATEOFSTOCK of those items in which the Discount percentage is more than 15 from INTERIORS.
+Ans: Select Itemname,Dateofstock from Interiors Where Discount>15
+(f) To count the number of items whose type is “Double bed”;
+Ans: Select Count(*) from Interiors Where Type=”Double Bed”
+(g) To insert new row in the NEWONES table with the following data:14, “True Indian “, “Office Table “, {28/03/03},15000,20.
+Ans: Insert into Newones values(14,”True Indian”,”Office Table”,”{28/03/03},15000,20).
+(h) Give the outputs for the following SQL statements.
+(i) Select COUNT (distinct TYPE) from INTERIORS;
+Ans: 5
+(ii) Select AVG(DISCOUNT)from INTERIORS where TYPE =”Baby cot”;
+Ans: 13
+(iii) Select SUM(price)from INTERIORS where DATEOFSTOCK<{12/02/02};
+Ans: 53000

@@ -1,0 +1,113 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use triparna;
+Database changed
+mysql> select * from store;
++--------+--------------------+-------+------+------+------------+
+| itemno | item               | scode | oty  | rate | lastbuy    |
++--------+--------------------+-------+------+------+------------+
+|   2005 | sharpener classic  |    23 |   60 |    8 | 2031-06-09 |
+|   2003 | balls              |    22 |   50 |   25 | 2001-02-10 |
+|   2002 | gel pen premium    |    21 |  150 |   12 | 2024-02-10 |
+|   2006 | gel pen classsic   |    21 |  250 |   20 | 2011-03-09 |
+|   2001 | eraser cmall       |    22 |  220 |    6 | 2019-01-09 |
+|   2004 | eraser big         |    22 |  110 |    8 | 2002-12-09 |
+|   2009 | ball point pen 0.5 |    21 |  180 |   18 | 2003-09-09 |
++--------+--------------------+-------+------+------+------------+
+7 rows in set (0.02 sec)
+
+mysql> select * from suppliers;
++--------+--------------------+
+| scodes | sname              |
++--------+--------------------+
+|     21 | premium stationers |
+|     23 | soft plastics      |
+|     22 | tera supply        |
++--------+--------------------+
+3 rows in set (0.02 sec)
+
+mysql> select * from store order by lastbuy;
++--------+--------------------+-------+------+------+------------+
+| itemno | item               | scode | oty  | rate | lastbuy    |
++--------+--------------------+-------+------+------+------------+
+|   2003 | balls              |    22 |   50 |   25 | 2001-02-10 |
+|   2004 | eraser big         |    22 |  110 |    8 | 2002-12-09 |
+|   2009 | ball point pen 0.5 |    21 |  180 |   18 | 2003-09-09 |
+|   2006 | gel pen classsic   |    21 |  250 |   20 | 2011-03-09 |
+|   2001 | eraser cmall       |    22 |  220 |    6 | 2019-01-09 |
+|   2002 | gel pen premium    |    21 |  150 |   12 | 2024-02-10 |
+|   2005 | sharpener classic  |    23 |   60 |    8 | 2031-06-09 |
++--------+--------------------+-------+------+------+------------+
+7 rows in set (0.00 sec)
+
+mysql> select itemno,item from supplier where scode=22 and oty<110;
+ERROR 1146 (42S02): Table 'triparna.supplier' doesn't exist
+mysql> select itemno,item from store where scode=22 and oty<110;
++--------+-------+
+| itemno | item  |
++--------+-------+
+|   2003 | balls |
++--------+-------+
+1 row in set (0.01 sec)
+
+mysql> select min(rate) from store order by scode;
++-----------+
+| min(rate) |
++-----------+
+|         6 |
++-----------+
+1 row in set (0.02 sec)
+
+mysql>  SELECT COUNT(DISTINCT SCODE) FROM STORE;
++-----------------------+
+| COUNT(DISTINCT SCODE) |
++-----------------------+
+|                     3 |
++-----------------------+
+1 row in set (0.02 sec)
+
+mysql> SELECT RATE * QTY FROM STORE WHERE ITEMNO=2004;
+ERROR 1054 (42S22): Unknown column 'QTY' in 'field list'
+mysql> SELECT RATE * QTY FROM STORE WHERE ITEMNO=2004;
+ERROR 1054 (42S22): Unknown column 'QTY' in 'field list'
+mysql> SELECT RATE * oTY FROM STORE WHERE ITEMNO=2004;
++------------+
+| RATE * oTY |
++------------+
+|        880 |
++------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT RATE * QTY FROM STORE WHERE ITEMNO=2004;
+ERROR 1054 (42S22): Unknown column 'QTY' in 'field list'
+mysql> SELECT ITEM, SNAME FROM STORE S, SUPPLIERS P WHERE S.SCODE=P.SCODE
+    -> AND ITEMNO=2006;
+ERROR 1054 (42S22): Unknown column 'P.SCODE' in 'where clause'
+mysql> SELECT ITEM, SNAME FROM STORE S, SUPPLIERS P WHERE S.SCODE=P.SCODEs  and itemno=2006;
++------------------+--------------------+
+| ITEM             | SNAME              |
++------------------+--------------------+
+| gel pen classsic | premium stationers |
++------------------+--------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT MAX(LASTBUY) FROM STORE;
++--------------+
+| MAX(LASTBUY) |
++--------------+
+| 2031-06-09   |
++--------------+
+1 row in set (0.01 sec)
+
+mysql>

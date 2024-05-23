@@ -1,0 +1,124 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use triparna;
+Database changed
+mysql> DESC DUAL;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DUAL' at line 1
+mysql> SELECT ABS(-87) "Absolute" FROM DUAL;
++----------+
+| Absolute |
++----------+
+|       87 |
++----------+
+1 row in set (0.02 sec)
+
+mysql> SELECT ACOS(.3)"Arc_Cosine" FROM DUAL;
++--------------------+
+| Arc_Cosine         |
++--------------------+
+| 1.2661036727794992 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> select ceil(3.456) "Ceil" from dual;
++------+
+| Ceil |
++------+
+|    4 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select ceil(3.456) "Ceil" from dual;
++------+
+| Ceil |
++------+
+|    4 |
++------+
+1 row in set (0.00 sec)
+
+mysql> select trunc(3.4573) "trunc" from dual;
+ERROR 1305 (42000): FUNCTION triparna.trunc does not exist
+mysql> select round(3.4573,2) "Round" from dual;
++-------+
+| Round |
++-------+
+|  3.46 |
++-------+
+1 row in set (0.00 sec)
+
+mysql> select log(10,100) from dual;
++-------------+
+| log(10,100) |
++-------------+
+|           2 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select log(10,100) from dual;
++-------------+
+| log(10,100) |
++-------------+
+|           2 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select power(2,3) "Power" from dual;
++-------+
+| Power |
++-------+
+|     8 |
++-------+
+1 row in set (0.01 sec)
+
+mysql> Select mod(30,4) "MOD" from dual;
++------+
+| MOD  |
++------+
+|    2 |
++------+
+1 row in set (0.01 sec)
+
+mysql> select exp(2) "e raised to 2" from dual;
++------------------+
+| e raised to 2    |
++------------------+
+| 7.38905609893065 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select ln(2) from dual;
++--------------------+
+| ln(2)              |
++--------------------+
+| 0.6931471805599453 |
++--------------------+
+1 row in set (0.01 sec)
+
+mysql> Select Tan(60) "Tangent" from dual;
++-------------------+
+| Tangent           |
++-------------------+
+| 0.320040389379563 |
++-------------------+
+1 row in set (0.01 sec)
+
+mysql> Select SIN(60) "Sine" from dual;
++---------------------+
+| Sine                |
++---------------------+
+| -0.3048106211022167 |
++---------------------+
+1 row in set (0.01 sec)
+
+mysql>

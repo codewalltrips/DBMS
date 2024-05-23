@@ -1,0 +1,185 @@
+a)
+i) SELECT NAME,PRICE FROM ACCESSORIES ORDER BY PRICE;
+
+ii) SELECT ID,SNAME FROM SHOPPE WHERE AREA='NEHRU PLACE';
+
+iii)SELECT MIN(PRICE) "MININUM PRICE", MAX(PRICE) "MAXIMUM PRICE", NAME FROM ACCESSORIES
+GROUP BY NAME;
+
+iv)SELECT NAME,PRICE,SNAME FROM ACCESSORIES A, SHOPPE S WHERE A.ID=S.ID;
+
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use Triparna;
+Database changed
+mysql> INSERT INTO ACCESSORIES VALUES('A01','MOTHERBOARD',12000,01);
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('A02','HARD DISK',5000,01);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('A03','KEYBOARD',500,02);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('A04','MOUSE',300,01);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('A05','MOTHERBOARD',13000,02);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('A06','KEYBOARD',400,03);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM ACCESSORIES;
++------+-------------+-------+------+
+| NO   | NAME        | PRICE | ID   |
++------+-------------+-------+------+
+| A01  | MOTHERBOARD | 12000 |    1 |
+| A02  | HARD DISK   |  5000 |    1 |
+| A03  | KEYBOARD    |   500 |    2 |
+| A04  | MOUSE       |   300 |    1 |
+| A05  | MOTHERBOARD | 13000 |    2 |
+| A06  | KEYBOARD    |   400 |    3 |
++------+-------------+-------+------+
+6 rows in set (0.00 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('A07','LCD',6000,04);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('T08','LCD',5500,05);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('T09','MOUSE',350,05);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ACCESSORIES VALUES('T10','HARD DISK',4500,03);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM SHOPPE;
++------+--------------------+--------------+
+| ID   | SNAME              | AREA         |
++------+--------------------+--------------+
+|    1 | ABC COMPUTERONICS  | CP           |
+|    2 | ALL INFOTECH MEDIA | GK II        |
+|    3 | ALL TECH SHOPPE    | CP           |
+|    4 | GEEKS TECNO SOFT   | NEHRU PALACE |
+|    5 | HITECH TECH SOFT   | NEHRU PALACE |
++------+--------------------+--------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT NAME,PRICE FROM ACCESSORIES ORDER BY PRICE;
++-------------+-------+
+| NAME        | PRICE |
++-------------+-------+
+| MOUSE       |   300 |
+| MOUSE       |   350 |
+| KEYBOARD    |   400 |
+| KEYBOARD    |   500 |
+| HARD DISK   |  4500 |
+| HARD DISK   |  5000 |
+| LCD         |  5500 |
+| LCD         |  6000 |
+| MOTHERBOARD | 12000 |
+| MOTHERBOARD | 13000 |
++-------------+-------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT ID,SNAME FROM SHOPPE WHERE AREA='NEHRU PALACE';
++------+------------------+
+| ID   | SNAME            |
++------+------------------+
+|    4 | GEEKS TECNO SOFT |
+|    5 | HITECH TECH SOFT |
++------+------------------+
+2 rows in set (0.01 sec)
+
+mysql> SELECT MIN(PRICE) "MINIMUM PRICE", MAX(PRICE) "MAXIMUM PRICE", NAME FROM ACCESSORIES GROUP BY NAME;
++---------------+---------------+-------------+
+| MINIMUM PRICE | MAXIMUM PRICE | NAME        |
++---------------+---------------+-------------+
+|         12000 |         13000 | MOTHERBOARD |
+|          4500 |          5000 | HARD DISK   |
+|           400 |           500 | KEYBOARD    |
+|           300 |           350 | MOUSE       |
+|          5500 |          6000 | LCD         |
++---------------+---------------+-------------+
+5 rows in set (0.02 sec)
+
+mysql> SELECT NAME , PRICE,SNAME FROM ACCESSORIES.A , SHOPPE.S WHERE A.ID=S.ID;
+ERROR 1049 (42000): Unknown database 'accessories'
+mysql> SELECT NAME , PRICE,SNAME FROM ACCESSORIES A , SHOPPE S WHERE A.ID=S.ID;
++-------------+-------+--------------------+
+| NAME        | PRICE | SNAME              |
++-------------+-------+--------------------+
+| MOTHERBOARD | 12000 | ABC COMPUTERONICS  |
+| HARD DISK   |  5000 | ABC COMPUTERONICS  |
+| KEYBOARD    |   500 | ALL INFOTECH MEDIA |
+| MOUSE       |   300 | ABC COMPUTERONICS  |
+| MOTHERBOARD | 13000 | ALL INFOTECH MEDIA |
+| KEYBOARD    |   400 | ALL TECH SHOPPE    |
+| LCD         |  6000 | GEEKS TECNO SOFT   |
+| LCD         |  5500 | HITECH TECH SOFT   |
+| MOUSE       |   350 | HITECH TECH SOFT   |
+| HARD DISK   |  4500 | ALL TECH SHOPPE    |
++-------------+-------+--------------------+
+10 rows in set (0.01 sec)
+
+mysql> SELECT DISTINCT NAME FROM ACCESSORIES WHERE PRICE>=5000;
++-------------+
+| NAME        |
++-------------+
+| MOTHERBOARD |
+| HARD DISK   |
+| LCD         |
++-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT AREA, COUNT (*) FROM SHOPPE GROUP BY AREA;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '*) FROM SHOPPE GROUP BY AREA' at line 1
+mysql> SELECT AREA, COUNT(*) FROM SHOPPE GROUP BY AREA;
++--------------+----------+
+| AREA         | COUNT(*) |
++--------------+----------+
+| CP           |        2 |
+| GK II        |        1 |
+| NEHRU PALACE |        2 |
++--------------+----------+
+3 rows in set (0.01 sec)
+
+mysql>  SELECT COUNT (DISTINCT AREA) FROM SHOPPE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT AREA) FROM SHOPPE' at line 1
+mysql>  SELECT COUNT(DISTINCT AREA) FROM SHOPPE;
++----------------------+
+| COUNT(DISTINCT AREA) |
++----------------------+
+|                    3 |
++----------------------+
+1 row in set (0.01 sec)
+
+mysql> SELECT NAME, PRICE*0.05 DISCOUNT FROM ACCESSORIES WHERE ID IN(‘S02’,
+    -> ‘S03’);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?S02?,
+?S03?)' at line 1
+mysql> SELECT NAME, PRICE*0.05 DISCOUNT FROM ACCESSORIES WHERE ID IN(02,03);
++-------------+----------+
+| NAME        | DISCOUNT |
++-------------+----------+
+| KEYBOARD    |    25.00 |
+| MOTHERBOARD |   650.00 |
+| KEYBOARD    |    20.00 |
+| HARD DISK   |   225.00 |
++-------------+----------+
+4 rows in set (0.01 sec)
+
+mysql>

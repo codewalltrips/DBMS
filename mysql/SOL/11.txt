@@ -1,0 +1,117 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> USE TRIPARNA;
+Database changed
+mysql> DESC EMPLOYEE11;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| ECODE  | int         | YES  |     | NULL    |       |
+| NAME   | char(20)    | YES  |     | NULL    |       |
+| DESIGN | char(20)    | YES  |     | NULL    |       |
+| SGRADE | varchar(10) | YES  |     | NULL    |       |
+| DOJ    | date        | YES  |     | NULL    |       |
+| DOB    | date        | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+6 rows in set (0.02 sec)
+
+mysql> INSERT INTO EMPLOYEE11 VALUES(;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> INSERT INTO EMPLOYEE11 VALUES(101,'ABDUL AHMED','EXECUTIVE','S03','23-MAR-2003','13-JAN-1980);
+    '> INSERT INTO EMPLOYEE11 VALUES(101,'ABDUL AHMED','EXECUTIVE','S03','23-MAR-2003','13-JAN-1980);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'ABDUL AHMED','EXECUTIVE','S03','23-MAR-2003','13-JAN-1980)' at line 2
+mysql> INSERT INTO EMPLOYEE11 VALUES(101,'ABDUL AHMED','EXECUTIVE','S03','23-MAR-2003','13-JAN-1980');
+Query OK, 1 row affected, 2 warnings (0.01 sec)
+
+mysql> INSERT INTO EMPLOYEE11 VALUES(102,'RAVI CHANDER','HEAD-IT','S02',12-FEB-2010,'22-JUL-1987');
+ERROR 1054 (42S22): Unknown column 'FEB' in 'field list'
+mysql> INSERT INTO EMPLOYEE11 VALUES(102,'RAVI CHANDER','HEAD-IT','S02','12-FEB-2010','22-JUL-1987');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE11 VALUES(103,'JOHN KEN','RECEPTIONIST','S03','24-JUN-2009','24-FEB-1983');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE11 VALUES(105,'NAZAR AMEEN','GM','S02','11-AUG-2006','03-MAR-1984');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE11 VALUES(108,'PRIYAM SEM','CEO','S01','29-DEC-2004','19-JAN-1982');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE11;
++-------+--------------+--------------+--------+------------+------------+
+| ECODE | NAME         | DESIGN       | SGRADE | DOJ        | DOB        |
++-------+--------------+--------------+--------+------------+------------+
+|   101 | ABDUL AHMED  | EXECUTIVE    | S03    | 0000-00-00 | 0000-00-00 |
+|   102 | RAVI CHANDER | HEAD-IT      | S02    | 0000-00-00 | 0000-00-00 |
+|   103 | JOHN KEN     | RECEPTIONIST | S03    | 0000-00-00 | 0000-00-00 |
+|   105 | NAZAR AMEEN  | GM           | S02    | 0000-00-00 | 0000-00-00 |
+|   108 | PRIYAM SEM   | CEO          | S01    | 0000-00-00 | 0000-00-00 |
++-------+--------------+--------------+--------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> CREATE TABLE SALGRADE(SGRADE VARCHAR(5), SALARY INT, HRA INT);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO SALGRADE VALUES('S01',56000,18000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO SALGRADE VALUES('S02',32000,12000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO SALGRADE VALUES('S03',24000,8000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT * FROM SALGRADE;
++--------+--------+-------+
+| SGRADE | SALARY | HRA   |
++--------+--------+-------+
+| S01    |  56000 | 18000 |
+| S02    |  32000 | 12000 |
+| S03    |  24000 |  8000 |
++--------+--------+-------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEE ORDER BY DOJ DESC;
+ERROR 1054 (42S22): Unknown column 'DOJ' in 'order clause'
+mysql> SELECT * FROM EMPLOYEE11 ORDER BY DOJ DESC;
++-------+--------------+--------------+--------+------------+------------+
+| ECODE | NAME         | DESIGN       | SGRADE | DOJ        | DOB        |
++-------+--------------+--------------+--------+------------+------------+
+|   101 | ABDUL AHMED  | EXECUTIVE    | S03    | 0000-00-00 | 0000-00-00 |
+|   102 | RAVI CHANDER | HEAD-IT      | S02    | 0000-00-00 | 0000-00-00 |
+|   103 | JOHN KEN     | RECEPTIONIST | S03    | 0000-00-00 | 0000-00-00 |
+|   105 | NAZAR AMEEN  | GM           | S02    | 0000-00-00 | 0000-00-00 |
+|   108 | PRIYAM SEM   | CEO          | S01    | 0000-00-00 | 0000-00-00 |
++-------+--------------+--------------+--------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT NAME , DESIGN FROM EMPLOYEE11 WHERE SGRADE='S02' OR SGRADE='S03';
++--------------+--------------+
+| NAME         | DESIGN       |
++--------------+--------------+
+| ABDUL AHMED  | EXECUTIVE    |
+| RAVI CHANDER | HEAD-IT      |
+| JOHN KEN     | RECEPTIONIST |
+| NAZAR AMEEN  | GM           |
++--------------+--------------+
+4 rows in set (0.00 sec)
+
+mysql> INSERT INTO EMPLOYEE VALUES(109,'HARISH ROY','HEAD-IT','09-SEP-2007','21-APR-1983');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO EMPLOYEE11 VALUES(109,'HARISH ROY','HEAD-IT','09-SEP-2007','21-APR-1983');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO EMPLOYEE11 VALUES(109,'HARISH ROY','HEAD-IT','S02','09-SEP-2007','21-APR-1983');
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql>
