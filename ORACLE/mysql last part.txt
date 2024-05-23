@@ -1,0 +1,344 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.31 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use triparna;
+Database changed
+mysql> CREATE TABLE ts (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, col TIMESTAMP NOT NULL ) AUTO_INCREMENT = 1;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO t1 VALUES (1, 101.40, 21.40), (1, -80.00, 0.00),
+    -> (2, 0.00, 0.00), (2, -13.20, 0.00), (2, 59.60, 46.40),
+    -> (2, 30.40, 30.40), (3, 37.00, 7.40), (3, -29.60, 0.00),
+    -> (4, 60.00, 15.40), (4, -10.60, 0.00), (4, -34.00, 0.00),
+    -> (5, 33.00, 0.00), (5, -25.80, 0.00), (5, 0.00, 7.20),
+    -> (6, 0.00, 0.00), (6, -51.40, 0.00);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>
+mysql> INSERT INTO t1 VALUES (1, 101.40, 21.40), (1, -80.00, 0.00);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> CREATE TABLE t1 (i INT, d1 DOUBLE, d2 DOUBLE);
+ERROR 1050 (42S01): Table 't1' already exists
+mysql> desc t1;
++-------+----------+------+-----+---------+-------+
+| Field | Type     | Null | Key | Default | Extra |
++-------+----------+------+-----+---------+-------+
+| roll  | int      | YES  |     | NULL    |       |
+| name  | char(50) | YES  |     | NULL    |       |
++-------+----------+------+-----+---------+-------+
+2 rows in set (0.03 sec)
+
+mysql> delete table t1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table t1' at line 1
+mysql> truncate table t1;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE t1 (i INT, d1 DOUBLE, d2 DOUBLE);
+ERROR 1050 (42S01): Table 't1' already exists
+mysql> drop table t1;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> CREATE TABLE t1 (i INT, d1 DOUBLE, d2 DOUBLE);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO t1 VALUES (1, 101.40, 21.40), (1, -80.00, 0.00),
+    -> (2, 0.00, 0.00), (2, -13.20, 0.00), (2, 59.60, 46.40),
+    -> (2, 30.40, 30.40), (3, 37.00, 7.40), (3, -29.60, 0.00),
+    -> (4, 60.00, 15.40), (4, -10.60, 0.00), (4, -34.00, 0.00),
+    -> (5, 33.00, 0.00), (5, -25.80, 0.00), (5, 0.00, 7.20),
+    -> (6, 0.00, 0.00), (6, -51.40, 0.00);
+Query OK, 16 rows affected (0.01 sec)
+Records: 16  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> SELECT i, SUM(d1) AS a, SUM(d2) AS b FROM t1 GROUP BY i HAVING a <> b;
++------+--------------------+------+
+| i    | a                  | b    |
++------+--------------------+------+
+|    1 | 21.400000000000006 | 21.4 |
+|    2 |  76.80000000000001 | 76.8 |
+|    3 |  7.399999999999999 |  7.4 |
+|    4 | 15.399999999999999 | 15.4 |
+|    5 |  7.199999999999999 |  7.2 |
+|    6 |              -51.4 |    0 |
++------+--------------------+------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT i, SUM(d1) AS a, SUM(d2) AS b FROM t1 GROUP BY i HAVING ABS(a - b)
+    -> > 0.0001;
++------+-------+------+
+| i    | a     | b    |
++------+-------+------+
+|    6 | -51.4 |    0 |
++------+-------+------+
+1 row in set (0.00 sec)
+
+mysql> SELECT i, SUM(d1) AS a, SUM(d2) AS b FROM t1 GROUP BY i HAVING ABS(a - b)
+    -> <= 0.0001;
++------+--------------------+------+
+| i    | a                  | b    |
++------+--------------------+------+
+|    1 | 21.400000000000006 | 21.4 |
+|    2 |  76.80000000000001 | 76.8 |
+|    3 |  7.399999999999999 |  7.4 |
+|    4 | 15.399999999999999 | 15.4 |
+|    5 |  7.199999999999999 |  7.2 |
++------+--------------------+------+
+5 rows in set (0.00 sec)
+
+mysql>  SELECT IF(0, 'true', 'false');
++------------------------+
+| IF(0, 'true', 'false') |
++------------------------+
+| false                  |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT IF(1, 'true', 'false');
++------------------------+
+| IF(1, 'true', 'false') |
++------------------------+
+| true                   |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT IF(2, 'true', 'false');
++------------------------+
+| IF(2, 'true', 'false') |
++------------------------+
+| true                   |
++------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT IF(0 = FALSE, 'true', 'false');
++--------------------------------+
+| IF(0 = FALSE, 'true', 'false') |
++--------------------------------+
+| true                           |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT IF(1 = TRUE, 'true', 'false');
++-------------------------------+
+| IF(1 = TRUE, 'true', 'false') |
++-------------------------------+
+| true                          |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT IF(2 = TRUE, 'true', 'false');
++-------------------------------+
+| IF(2 = TRUE, 'true', 'false') |
++-------------------------------+
+| false                         |
++-------------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT IF(2 = FALSE, 'true', 'false');
++--------------------------------+
+| IF(2 = FALSE, 'true', 'false') |
++--------------------------------+
+| false                          |
++--------------------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE t1 (i1 TINYINT, i2 TINYINT UNSIGNED);
+ERROR 1050 (42S01): Table 't1' already exists
+mysql> CREATE TABLE t2 (i1 TINYINT, i2 TINYINT UNSIGNED);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SET sql_mode = 'TRADITIONAL';
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO t2 (i1, i2) VALUES(256, 256);
+ERROR 1264 (22003): Out of range value for column 'i1' at row 1
+mysql> select * from t1;
++------+-------+------+
+| i    | d1    | d2   |
++------+-------+------+
+|    1 | 101.4 | 21.4 |
+|    1 |   -80 |    0 |
+|    2 |     0 |    0 |
+|    2 | -13.2 |    0 |
+|    2 |  59.6 | 46.4 |
+|    2 |  30.4 | 30.4 |
+|    3 |    37 |  7.4 |
+|    3 | -29.6 |    0 |
+|    4 |    60 | 15.4 |
+|    4 | -10.6 |    0 |
+|    4 |   -34 |    0 |
+|    5 |    33 |    0 |
+|    5 | -25.8 |    0 |
+|    5 |     0 |  7.2 |
+|    6 |     0 |    0 |
+|    6 | -51.4 |    0 |
++------+-------+------+
+16 rows in set (0.00 sec)
+
+mysql> select * from t2;
+Empty set (0.00 sec)
+
+mysql> SET sql_mode = ' ';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO t2 (i1, i2) VALUES(256, 256);
+Query OK, 1 row affected, 2 warnings (0.00 sec)
+
+mysql> select * from t2;
++------+------+
+| i1   | i2   |
++------+------+
+|  127 |  255 |
++------+------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE ts (id INTEGER NOT NULL AUTO_INCREMENT PRIMARY KEY, col TIMESTAMP NOT NULL ) AUTO_INCREMENT = 1;
+ERROR 1050 (42S01): Table 'ts' already exists
+mysql>
+mysql> CREATE TABLE dt (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, col DATETIME NOT NULL) AUTO_INCREMENT = 1;
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> SET @@time_zone = 'SYSTEM';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> > INSERT INTO ts (col) VALUES ('2020-01-01 10:10:10'), ('2020-01-01 10:10:10+05:30'),
+    -> ('2020-01-01 10:10:10-08:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> INSERT INTO ts (col) VALUES ('2020-01-01 10:10:10'), ('2020-01-01 10:10:10+05:' at line 1
+mysql> > INSERT INTO ts (col) VALUES ('2020-01-01 10:10:10'), ('2020-01-01 10:10:10+05:30'),('2020-01-01 10:10:10-08:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> INSERT INTO ts (col) VALUES ('2020-01-01 10:10:10'), ('2020-01-01 10:10:10+05:' at line 1
+mysql> > INSERT INTO ts VALUES ('2020-01-01 10:10:10'), ('2020-01-01 10:10:10+05:30'),('2020-01-01 10:10:10-08:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> INSERT INTO ts VALUES ('2020-01-01 10:10:10'), ('2020-01-01 10:10:10+05:30'),(' at line 1
+mysql> desc ts;
++-------+-----------+------+-----+---------+----------------+
+| Field | Type      | Null | Key | Default | Extra          |
++-------+-----------+------+-----+---------+----------------+
+| id    | int       | NO   | PRI | NULL    | auto_increment |
+| col   | timestamp | NO   |     | NULL    |                |
++-------+-----------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> > INSERT INTO ts VALUES ('2020-01-01, 10:10:10'), ('2020-01-01 ,10:10:10+05:30'),('2020-01-01 ,10:10:10-08:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> INSERT INTO ts VALUES ('2020-01-01, 10:10:10'), ('2020-01-01 ,10:10:10+05:30')' at line 1
+mysql> > INSERT INTO ts (col) VALUES ('2020-01-01, 10:10:10'), ('2020-01-01, 10:10:10+05:30'),('2020-01-01, 10:10:10-08:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> INSERT INTO ts (col) VALUES ('2020-01-01, 10:10:10'), ('2020-01-01, 10:10:10+0' at line 1
+mysql> CREATE TABLE fractest( c1 TIME(2), c2 DATETIME(2), c3 TIMESTAMP(2) );
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO fractest VALUES('17:51:04.777', '2018-09-08 17:51:04.777', '2018-09-08
+    '> 17:51:04.777');
+Query OK, 1 row affected, 1 warning (0.01 sec)
+
+mysql> SELECT * FROM fractest;
++-------------+------------------------+------------------------+
+| c1          | c2                     | c3                     |
++-------------+------------------------+------------------------+
+| 17:51:04.78 | 2018-09-08 17:51:04.78 | 2018-09-08 17:51:04.78 |
++-------------+------------------------+------------------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT CURTIME(), CURTIME()+0, CURTIME(3)+0;
++-----------+-------------+--------------+
+| CURTIME() | CURTIME()+0 | CURTIME(3)+0 |
++-----------+-------------+--------------+
+| 21:56:29  |      215629 |   215629.968 |
++-----------+-------------+--------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT NOW(), NOW()+0, NOW(3)+0;
++---------------------+----------------+--------------------+
+| NOW()               | NOW()+0        | NOW(3)+0           |
++---------------------+----------------+--------------------+
+| 2023-09-05 21:56:35 | 20230905215635 | 20230905215635.273 |
++---------------------+----------------+--------------------+
+1 row in set (0.00 sec)
+
+mysql> CREATE TABLE shirts (name VARCHAR(40),size ENUM('x-small', 'small', 'medium', 'large', 'x- large'));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> INSERT INTO shirts (name, size) VALUES ('dress shirt','large'), ('t-shirt','medium'),('polo shirt','small');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT name, size FROM shirts WHERE size = 'medium';
++---------+--------+
+| name    | size   |
++---------+--------+
+| t-shirt | medium |
++---------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT name, size FROM shirts WHERE size = 'large';
++-------------+-------+
+| name        | size  |
++-------------+-------+
+| dress shirt | large |
++-------------+-------+
+1 row in set (0.00 sec)
+
+mysql> UPDATE shirts SET size = 'small' WHERE size = 'large';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT name, size FROM shirts WHERE size = 'small';
++-------------+-------+
+| name        | size  |
++-------------+-------+
+| dress shirt | small |
+| polo shirt  | small |
++-------------+-------+
+2 rows in set (0.00 sec)
+
+mysql> INSERT INTO ts (col) VALUES ('2020-01-01 10:10:10');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO ts (col) VALUES ('2020-01-01 10:10:10+05:30');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO ts (col) VALUES ('2020-01-01 10:10:10-08:00');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  SET @@time_zone = '+00:00';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO ts (col) VALUES ('2020-01-01 10:10:10'), ('2020-01-01 10:10:10+05:30'),
+    -> ('2020-01-01 10:10:10-08:00');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql>  SET @@time_zone = '+00:00';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>  SET @@time_zone = 'SYSTEM';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> INSERT INTO dt (col) VALUES ('2020-01-01 10:10:10'),('2020-01-01 10:10:10+05:30'),
+    -> ('2020-01-01 10:10:10-08:00');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql>  SET @@time_zone = '+00:00';
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> > INSERT INTO dt (col) VALUES ('2020-01-01 10:10:10'),('2020-01-01 10:10:10+05:30'),
+    -> ('2020-01-01 10:10:10-08:00');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '> INSERT INTO dt (col) VALUES ('2020-01-01 10:10:10'),('2020-01-01 10:10:10+05:3' at line 1
+mysql>  SELECT col, UNIX_TIMESTAMP(col) FROM dt ORDER BY id;
++---------------------+---------------------+
+| col                 | UNIX_TIMESTAMP(col) |
++---------------------+---------------------+
+| 2020-01-01 10:10:10 |          1577873410 |
+| 2020-01-01 10:10:10 |          1577873410 |
+| 2020-01-01 23:40:10 |          1577922010 |
++---------------------+---------------------+
+3 rows in set (0.00 sec)
+
+mysql>
